@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+
+  database:
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_DB: Auth
+      # You should definitely change the password in production
+      POSTGRES_PASSWORD: Auth
+      POSTGRES_USER: Auth
+    ports:
+      - 5432:5432
+
+  adminer:
+    image: adminer
+    depends_on:
+      - database
+
+    ports:
+      - 8001:8080
+    environment:
+      ADMINER_DESIGN: hever
+      ADMINER_PLUGINS: edit-foreign dump-date dump-json dump-php dump-xml dump-zip edit-foreign edit-textarea enum-option enum-types file-upload foreign-system frames json-column slugify sql-log struct-comments table-indexes-structure table-structure tables-filter tinymce version-noverify wymeditor
